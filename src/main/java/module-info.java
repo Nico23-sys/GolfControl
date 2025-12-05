@@ -5,9 +5,15 @@ module edu.nob.liceo.ejerevaluacionnob {
     requires javafx.graphics;
     requires java.sql;
 
-
     opens edu.nob.liceo.ejerevaluacionnob to javafx.fxml;
     exports edu.nob.liceo.ejerevaluacionnob;
-    exports edu.nob.liceo.ejerevaluacionnob.controllers;
+
     opens edu.nob.liceo.ejerevaluacionnob.controllers to javafx.fxml;
+    exports edu.nob.liceo.ejerevaluacionnob.controllers ;
+
+    opens edu.nob.liceo.ejerevaluacionnob.model to javafx.fxml;
+    exports edu.nob.liceo.ejerevaluacionnob.model;
+
+    opens edu.nob.liceo.ejerevaluacionnob.db to javafx.fxml;
+    exports edu.nob.liceo.ejerevaluacionnob.db;
 }

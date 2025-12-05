@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
@@ -53,7 +54,12 @@ try(Connection c= DataBaseConnection.getConnection()) {
     System.err.println("Error al obtener usuario");
 }
 
-        return null;
+        return usuario;
+    }
+
+    @Override
+    public List<Usuario> getAllUsuarios() {
+        return List.of();
     }
 
 }

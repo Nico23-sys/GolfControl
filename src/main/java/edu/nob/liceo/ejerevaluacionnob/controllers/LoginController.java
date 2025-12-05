@@ -28,15 +28,19 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginButton;
 
+
+
     @FXML
     protected void onLoginButtonClick(ActionEvent event) throws IOException {
-    
-    }
 
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("La vista de login está lista. Poniendo el foco en el campo de usuario.");
 
         Platform.runLater(()->usernameField.requestFocus());
     }
-}
+    }
+
+
+
