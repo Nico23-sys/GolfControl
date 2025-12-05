@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
@@ -59,7 +60,69 @@ try(Connection c= DataBaseConnection.getConnection()) {
 
     @Override
     public List<Usuario> getAllUsuarios() {
-        return List.of();
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "select * from usuarios";
+
+        try(Connection conn= DataBaseConnection.getConnection();
+            PreparedStatement pstmt= conn.prepareStatement(sql);
+            ResultSet rs= pstmt.executeQuery()){
+
+            while(rs.next()){
+                Usuario usuario= new Usuario();
+
+                usuario.setUsuario_id(rs.getInt("usuario_id"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setNickname(rs.getString("nickname"));
+                usuario.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPassword(rs.getString("password"));
+                usuarios.add(usuario);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
+    @Override
+    public List<Usuario> buscarUsuario(String termino) {
+        List<Usuario> usuarios = new ArrayList<>();
+        // Buscamos si el texto coincide con nombre, apellido O nickname
+        String sql = "SELECT * FROM usuarios WHERE nombre LIKE ? OR apellido LIKE ? OR nickname LIKE ?";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            String terminoBusq="%"+termino.toLowerCase()+"%";
+            pstmt.setString(1, terminoBusq); // Para nombre
+            pstmt.setString(2, terminoBusq); // Para apellido
+            pstmt.setString(3, terminoBusq); // Para nickname
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Usuario usuario = new Usuario();
+
+
+                    usuario.setUsuario_id(rs.getInt("usuario_id"));
+                    usuario.setNombre(rs.getString("nombre"));
+                    usuario.setApellido(rs.getString("apellido"));
+                    usuario.setNickname(rs.getString("nickname"));
+                    usuario.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+
+
+
+
+
+                    // Añadimos a la lista
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
     }
 
 }

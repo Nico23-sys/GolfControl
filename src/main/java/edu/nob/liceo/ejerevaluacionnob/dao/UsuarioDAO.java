@@ -9,5 +9,6 @@ public interface UsuarioDAO {
     Usuario getUsuarioPorUsername(String username);
 
     List<Usuario> getAllUsuarios();
+    List<Usuario> buscarUsuario(String terminoBusq);
 
 }

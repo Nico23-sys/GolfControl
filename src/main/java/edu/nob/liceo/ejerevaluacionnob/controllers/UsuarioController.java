@@ -3,6 +3,7 @@ package edu.nob.liceo.ejerevaluacionnob.controllers;
 import edu.nob.liceo.ejerevaluacionnob.dao.UsuarioDAO;
 import edu.nob.liceo.ejerevaluacionnob.dao.UsuarioDAOImpl;
 import edu.nob.liceo.ejerevaluacionnob.model.Usuario;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +14,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UsuarioController implements Initializable {
@@ -41,7 +44,7 @@ public class UsuarioController implements Initializable {
 
     private Timeline debounce;
 
-    private static final int DEBOUNCE_DELAY = 500;
+    private static final int DEBOUNCE_DELAY_MS = 500;
 
     private Usuario usuario;
 
@@ -60,24 +63,30 @@ public class UsuarioController implements Initializable {
         tFechaNacimiento.setCellValueFactory(new PropertyValueFactory<>("fecha_nacimiento"));
         table.setItems(listaFiltradaUsuarios);
 
-        tfBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            listaFiltradaUsuarios.setPredicate(usuario -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
 
-                if (usuario.getNombre().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }else if (usuario.getNickname().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
-            });
+        debounce = new Timeline(new KeyFrame(Duration.millis(DEBOUNCE_DELAY_MS), e -> {
+            buscarUsuario(tfBuscar.getText());
+        }));
+        debounce.setCycleCount(1);
+
+
+        tfBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            debounce.stop();
+            debounce.playFromStart();
         });
 
+
+
     }
-    
+
+    private void buscarUsuario(String terminoBusq) {
+        listaUsuariosMaster.clear();
+        if (terminoBusq != null && !terminoBusq.trim().isEmpty()) {
+            List<Usuario> resultadoBusqueda= usuarioDAO.buscarUsuario(terminoBusq);
+            listaUsuarios.addAll(resultadoBusqueda);
+        }
+    }
+
     public void setUsuarioLogueado(Usuario usuario){
         this.usuarioLogueado=usuario;
     }

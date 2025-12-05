@@ -28,11 +28,38 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginButton;
 
-
+    private UsuarioDAO usuariodao = new UsuarioDAOImpl();
 
     @FXML
     protected void onLoginButtonClick(ActionEvent event) throws IOException {
+        String user = usernameField.getText();
+        String pass = passwordField.getText();
 
+        if (usuariodao.validarCredenciales(user, pass)) {
+
+            Usuario usuario = usuariodao.getUsuarioPorUsername(user);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("edu/nob/liceo/ejerevaluacionnob/recursos/usuarios-view.fxml"));
+
+            Parent root = loader.load();
+
+
+                UsuarioController usuariosController = loader.getController();
+                usuariosController.setUsuarioLogueado(usuario);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Error de credenciales");
+            alert.setContentText("Por favor, verifica tu usuario y contraseña");
+            alert.showAndWait();
+
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
