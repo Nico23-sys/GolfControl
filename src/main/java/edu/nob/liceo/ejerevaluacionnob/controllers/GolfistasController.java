@@ -144,6 +144,17 @@ public class GolfistasController implements Initializable {
         }
     }
 
+    public void handleLimpiar() {
+        GolfistaId.setText("-");
+        tfNombre.clear();
+        tfApellido.clear();
+        sliderEdad.setValue(0);
+        cbPais.setValue(null);
+        cbTipoPalo.setValue(null);
+        golfistaSeleccionado=null;
+        tablaGolfistas.getSelectionModel().clearSelection();
+    }
+
     private boolean camposValidos() {
         return !tfNombre.getText().isEmpty() &&
                 !tfApellido.getText().isEmpty() &&
@@ -165,6 +176,15 @@ public class GolfistasController implements Initializable {
         listaGolfistas.clear();
         List<Golfistas> golfistasBD= golfistasDAO.getAllGolfistas();
         listaGolfistas.addAll(golfistasBD);
+    }
+
+
+    private void mostrarAlerta(Alert.AlertType type, String titulo){
+        Alert alerta = new Alert(type);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(null);
+        alerta.showAndWait();
     }
 
 }
