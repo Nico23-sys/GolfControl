@@ -53,13 +53,23 @@
                 <TextField fx:id="tfApellido" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                 <Label text="Edad:" GridPane.rowIndex="3" />
-                <TextField fx:id="tfEdad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <Slider fx:id="sliderEdad" blockIncrement="1.0" majorTickUnit="10.0" max="100.0" min="15.0" minorTickCount="1" prefWidth="130.0" showTickMarks="true" value="25.0" />
+                        <Label fx:id="lblValorEdad" text="25">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
 
                 <Label text="País:" GridPane.rowIndex="4" />
                 <ComboBox fx:id="cbPais" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                 <Label text="Tipo Palo:" GridPane.rowIndex="5" />
                 <ComboBox fx:id="cbTipoPalo" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
 
             </GridPane>
 

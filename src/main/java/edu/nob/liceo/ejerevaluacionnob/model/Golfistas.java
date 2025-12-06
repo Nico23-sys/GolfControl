@@ -5,16 +5,29 @@ public class Golfistas {
     private String nombre;
     private String apellido;
 
+    private int edad;
     private String pais;
     private String tipoPalo;
 
-    public Golfistas(int id_golfista, String nombre, String apellido, String pais, String tipoPalo) {
+
+    public Golfistas(int id_golfista, String nombre, String apellido, int edad , String pais, String tipoPalo) {
         this.id_golfista = id_golfista;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.edad = edad;
         this.pais = pais;
         this.tipoPalo = tipoPalo;
     }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+
 
     public Golfistas() {}
 
