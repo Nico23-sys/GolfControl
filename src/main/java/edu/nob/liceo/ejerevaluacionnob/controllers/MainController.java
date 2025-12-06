@@ -2,9 +2,9 @@ package edu.nob.liceo.ejerevaluacionnob.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
-import navegacion.AppView;
-import navegacion.SessionManager;
-import navegacion.ViewSwitcher;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.AppView;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.SessionManager;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.ViewSwitcher;
 
 
 

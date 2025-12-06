@@ -13,8 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import navegacion.AppView;
-import navegacion.SessionManager;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.AppView;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;

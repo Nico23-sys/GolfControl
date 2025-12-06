@@ -1,4 +1,4 @@
-package navegacion;
+package edu.nob.liceo.ejerevaluacionnob.navegacion;
 
 import edu.nob.liceo.ejerevaluacionnob.model.Usuario;
 

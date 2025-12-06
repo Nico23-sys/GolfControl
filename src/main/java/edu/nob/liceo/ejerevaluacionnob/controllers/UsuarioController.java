@@ -15,7 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import navegacion.SessionManager;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.SessionManager;
 
 import java.net.URL;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package navegacion;
+package edu.nob.liceo.ejerevaluacionnob.navegacion;
 
 public enum AppView {
         LOGIN("/edu/nob/liceo/ejerevaluacionnob/hello-view.fxml"),

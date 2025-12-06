@@ -1,4 +1,4 @@
-package navegacion;
+package edu.nob.liceo.ejerevaluacionnob.navegacion;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
