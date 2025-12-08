@@ -117,7 +117,7 @@ public class TorneosController implements Initializable {
         try {
             List<Torneo> torneosBD= torneosDAO.getAllTorneos();
             listaTorneos.addAll(torneosBD);
-            listaTorneos.refresh();
+            tablaTorneos.refresh();
         }catch (Exception e){
             mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar datos: " + e.getMessage());
             e.printStackTrace();
@@ -177,6 +177,17 @@ public class TorneosController implements Initializable {
             handleLimpiar();
             mostrarAlerta(Alert.AlertType.INFORMATION, "Golfista eliminado");
         }
+    }
+
+    public void handleLimpiar(){
+        lblTorneoId.setText("-");
+        tfNombre.clear();
+        tfAnho.clear();
+        cbModalidad.setValue(null);
+        cbPais.setValue(null);
+        torneoSeleccionado=null;
+        tablaTorneos.getSelectionModel().clearSelection();
+
     }
 
     private boolean camposValidos() {

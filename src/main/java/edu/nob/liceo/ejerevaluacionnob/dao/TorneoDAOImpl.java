@@ -1,7 +1,7 @@
 package edu.nob.liceo.ejerevaluacionnob.dao;
 
 import edu.nob.liceo.ejerevaluacionnob.db.DataBaseConnection;
-import edu.nob.liceo.ejerevaluacionnob.model.Golfistas;
+
 import edu.nob.liceo.ejerevaluacionnob.model.Torneo;
 
 import java.sql.Connection;
@@ -15,7 +15,7 @@ public class TorneoDAOImpl implements TorneoDAO {
     @Override
     public List<Torneo> getAllTorneos() {
         List<Torneo> torneosBD= new ArrayList<>();
-        String sql = "select * from torneos";
+        String sql = "select * from torneo";
 
         try(Connection conn= DataBaseConnection.getConnection();
             PreparedStatement pstmt= conn.prepareStatement(sql);
@@ -96,10 +96,12 @@ public class TorneoDAOImpl implements TorneoDAO {
 
         try(Connection conn= DataBaseConnection.getConnection()){
             PreparedStatement ps= conn.prepareStatement(sql);
-            ps.setString(1, torneoSeleccionado.getNombre());
-            ps.setInt(2, torneoSeleccionado.getAnho());
-            ps.setString(3, torneoSeleccionado.getModalidad());
-            ps.setString(4, torneoSeleccionado.getPais());;
+            ps.setInt(1, torneoSeleccionado.getId_torneo());
+            ps.setString(2, torneoSeleccionado.getNombre());
+            ps.setInt(3, torneoSeleccionado.getAnho());
+            ps.setString(4, torneoSeleccionado.getModalidad());
+            ps.setString(5, torneoSeleccionado.getPais());;
+
             ps.executeUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
