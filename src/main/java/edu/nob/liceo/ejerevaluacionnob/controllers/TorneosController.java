@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TorneosController implements Initializable {
@@ -49,7 +50,7 @@ public class TorneosController implements Initializable {
     private static final int DEBOUNCE_DELAY_MS = 500;
 
     public TorneosController() {
-
+    this.torneosDAO = new TorneoDAOImpl();
     }
 
     @Override
@@ -100,6 +101,7 @@ public class TorneosController implements Initializable {
         }else{
             resultadoBusqueda= torneosDAO.getAllTorneos();
         }
+        listaTorneos.addAll(resultadoBusqueda);
     }
 
     private void rellenarFormulario(Torneo torneoSeleccionado) {
@@ -120,5 +122,74 @@ public class TorneosController implements Initializable {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar datos: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public void handleAnadir(){
+        if (camposValidos()){
+            int anho = Integer.parseInt(tfAnho.getText());
+            Torneo newTorneo= new Torneo(tfNombre.getText(), anho ,cbModalidad.getValue(), cbPais.getValue());
+            torneosDAO.addTorneos(newTorneo);
+            cargarTorneosBD();
+            handleLimpiar();
+
+        mostrarAlerta(Alert.AlertType.INFORMATION,"Torneo Añadido");
+    }else{
+        mostrarAlerta(Alert.AlertType.WARNING,"Datos incompletos");
+    }
+    }
+
+    public void handleModificar(){
+        if (torneoSeleccionado==null){
+            mostrarAlerta(Alert.AlertType.WARNING,"Ningún torneo seleccionado");
+
+            return;
+        }
+        if (camposValidos()){
+            torneoSeleccionado.setNombre(tfNombre.getText());
+            torneoSeleccionado.setAnho(Integer.parseInt(tfAnho.getText()));
+            torneoSeleccionado.setModalidad(cbModalidad.getValue());
+            torneoSeleccionado.setPais(cbPais.getValue());
+
+            torneosDAO.actuTorneos(torneoSeleccionado);
+            cargarTorneosBD();
+            handleLimpiar();
+            mostrarAlerta(Alert.AlertType.INFORMATION,"Torneo Modificado");
+        }else {
+            mostrarAlerta(Alert.AlertType.WARNING, "Datos Incompletos, rellena los campos del formulario");
+
+        }
+    }
+    public void handleEliminar(){
+        if (torneoSeleccionado==null){
+            mostrarAlerta(Alert.AlertType.WARNING,"Ningún Torneo seleccionado");
+            return;
+        }
+
+        Alert confirmacion= new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmar Eliminación");
+        confirmacion.setHeaderText("Seguro que quieres eliminar a: " + torneoSeleccionado.getNombre()+" ?");
+        confirmacion.setContentText("Esta accion no se puede deshacer");
+
+        Optional<ButtonType> resultado= confirmacion.showAndWait();
+        if (resultado.isPresent()&& resultado.get()==ButtonType.OK){
+            torneosDAO.eliminarTorneo(torneoSeleccionado.getId_torneo());
+            cargarTorneosBD();
+            handleLimpiar();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Golfista eliminado");
+        }
+    }
+
+    private boolean camposValidos() {
+        return !tfNombre.getText().isEmpty() &&
+                !tfAnho.getText().isEmpty() &&
+                cbModalidad.getValue() != null &&
+                cbPais.getValue() != null;
+    }
+    private void mostrarAlerta(Alert.AlertType type, String mensaje){
+        Alert alerta = new Alert(type);
+        alerta.setTitle("Información");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

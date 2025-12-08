@@ -10,4 +10,9 @@ public interface TorneoDAO {
     List<Torneo> filtrarTorneos(String terminoBusq);
 
 
+    void addTorneos(Torneo newTorneo);
+
+    void actuTorneos(Torneo torneoSeleccionado);
+
+    void eliminarTorneo(int idTorneo);
 }
