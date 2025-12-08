@@ -40,4 +40,50 @@ public class FavoritosDAOImpl implements FavoritosDAO {
         }
         return listafav;
     }
-}
+
+    @Override
+    public void quitarFavorito(int usuarioId, int idGolfista) {
+        String sql = "DELETE FROM favoritos WHERE usuario_id = ? AND id_jugador = ?";
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            ps.setInt(2, idGolfista);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean yaEsFavorito(int usuarioId, int idGolfista) {
+        String sql = "SELECT 1 FROM favoritos WHERE usuario_id = ? AND id_jugador = ?";
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            ps.setInt(2, idGolfista);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    @Override
+    public void addFavorito(int usuarioId, int idGolfista) {
+        if (yaEsFavorito(usuarioId, idGolfista)) return; // Evitar duplicados
+
+        String sql = "INSERT INTO favoritos (usuario_id, id_jugador) VALUES (?, ?)";
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            ps.setInt(2, idGolfista);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+
+
+

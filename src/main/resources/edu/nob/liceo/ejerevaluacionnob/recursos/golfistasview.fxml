@@ -87,6 +87,7 @@
         </HBox>
 
         <Button fx:id="btnLimpiar" onAction="#handleLimpiar" text="Limpiar Formulario" />
+        <Button text="Añadir a Favorito" onAction="#handleAnadirFav" />
     </VBox>
 
 </HBox>

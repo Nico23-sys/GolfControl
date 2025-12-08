@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -62,5 +63,22 @@ public class FavoritosController implements Initializable {
         }
     }
 
+    @FXML private void handleEliminarFavorito(){
+        Golfistas seleccionado=tablaFavoritos.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta("Selecciona un golfista fav para quitarlo.");
+            return;
+        }
 
-}
+        favoritosDAO.quitarFavorito(usuarioActual.getUsuario_id(), seleccionado.getId_golfista());
+        mostrarAlerta("Eliminado de favoritos.");
+        cargarFavoritos();
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(mensaje);
+        alert.show();
+    }
+    }
+

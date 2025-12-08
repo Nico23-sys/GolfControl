@@ -1,10 +1,13 @@
 package edu.nob.liceo.ejerevaluacionnob.controllers;
 
 import edu.nob.liceo.ejerevaluacionnob.DatosPais;
+import edu.nob.liceo.ejerevaluacionnob.Favoritos.FavoritosDAO;
+import edu.nob.liceo.ejerevaluacionnob.Favoritos.FavoritosDAOImpl;
 import edu.nob.liceo.ejerevaluacionnob.dao.GolfistasDAO;
 import edu.nob.liceo.ejerevaluacionnob.dao.GolfistasDAOImpl;
 import edu.nob.liceo.ejerevaluacionnob.model.Golfistas;
 import edu.nob.liceo.ejerevaluacionnob.model.Usuario;
+import edu.nob.liceo.ejerevaluacionnob.navegacion.SessionManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -40,6 +43,8 @@ public class GolfistasController implements Initializable {
 
     @FXML    private ComboBox<String> cbPais;
     @FXML    private ComboBox<String> cbTipoPalo;
+
+    private FavoritosDAO favoritosDAO = new FavoritosDAOImpl();
 
 
     @FXML    private Button btnAnadir;
@@ -194,6 +199,23 @@ public class GolfistasController implements Initializable {
         cbTipoPalo.setValue(null);
         golfistaSeleccionado=null;
         tablaGolfistas.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void handleAnadirFav() {
+        if (golfistaSeleccionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Selecciona un golfista primero");
+            return;
+        }
+
+        Usuario user = SessionManager.getInstance().getUsuarioactual();
+
+        if (favoritosDAO.yaEsFavorito(user.getUsuario_id(), golfistaSeleccionado.getId_golfista())) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Este golfista ya está en tus favoritos");
+        } else {
+            favoritosDAO.addFavorito(user.getUsuario_id(), golfistaSeleccionado.getId_golfista());
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Añadido a favoritos correctamente");
+        }
     }
 
     private boolean camposValidos() {
