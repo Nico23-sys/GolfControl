@@ -17,6 +17,7 @@
         <MenuBar>
             <Menu text="Golfistas">
                 <MenuItem text="Ver Golfistas" onAction="#showGolfistas"/>
+                <MenuItem text="Ver Favoritos" onAction="#mostrarFavoritos"/>
             </Menu>
 
             <Menu text="Torneos">

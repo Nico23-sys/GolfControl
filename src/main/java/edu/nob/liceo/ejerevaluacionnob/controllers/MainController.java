@@ -39,6 +39,11 @@ public class MainController {
     }
 
     @FXML
+    private void mostrarFavoritos() {
+        ViewSwitcher.switchView(AppView.FAVORITOS);
+    }
+
+    @FXML
     private void handleLogout() {
         SessionManager.getInstance().logout();
         System.exit(0);
