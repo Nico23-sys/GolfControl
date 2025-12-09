@@ -107,7 +107,7 @@ Prerequisites
 
 ✒️ Author
 
-    [Your Name] - Full Stack Developer - YourGitHubProfile
+  Nicolás Otero Bouza - Multiplatform Development Student
 
 📄 License
 
