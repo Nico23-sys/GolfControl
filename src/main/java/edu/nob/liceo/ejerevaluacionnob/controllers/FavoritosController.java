@@ -2,7 +2,6 @@ package edu.nob.liceo.ejerevaluacionnob.controllers;
 
 import edu.nob.liceo.ejerevaluacionnob.Favoritos.FavoritosDAO;
 import edu.nob.liceo.ejerevaluacionnob.Favoritos.FavoritosDAOImpl;
-import edu.nob.liceo.ejerevaluacionnob.dao.GolfistasDAO;
 import edu.nob.liceo.ejerevaluacionnob.model.Golfistas;
 import edu.nob.liceo.ejerevaluacionnob.model.Usuario;
 import edu.nob.liceo.ejerevaluacionnob.navegacion.SessionManager;

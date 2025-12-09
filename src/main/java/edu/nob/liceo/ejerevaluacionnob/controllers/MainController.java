@@ -1,7 +1,6 @@
 package edu.nob.liceo.ejerevaluacionnob.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import edu.nob.liceo.ejerevaluacionnob.navegacion.AppView;
 import edu.nob.liceo.ejerevaluacionnob.navegacion.SessionManager;
