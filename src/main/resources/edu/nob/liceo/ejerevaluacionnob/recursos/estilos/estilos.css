@@ -97,3 +97,95 @@
     -fx-background-radius: 5em;
 }
 
+.text-field {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-background-color: white;
+    -fx-padding: 5 10 5 10;
+
+
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+}
+
+
+.text-field:focused {
+    -fx-border-width: 2px;
+    -fx-border-color: #000000;
+}
+
+
+.combo-box {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-background-color: white;
+
+
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+}
+
+.combo-box:focused {
+    -fx-border-width: 2px;
+    -fx-border-color: #000000;
+}
+
+
+.button {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+
+
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+
+.button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 1);
+}
+
+
+.slider .track {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+-fx-border-radius: 10;
+
+
+-fx-border-color: #000000;
+-fx-border-width: 1px;
+
+-fx-pref-height: 10px;
+}
+
+
+.slider .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+
+
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+
+    -fx-pref-width: 15px;
+    -fx-pref-height: 15px;
+
+    -fx-cursor: hand;
+}
+
+
+.slider .thumb:hover {
+    -fx-background-color: #ffcccc;
+    -fx-border-color: #cc0000;
+}
+
+
+.slider .thumb:pressed {
+    -fx-background-color: #ff0000;
+    -fx-border-color: #000000;
+}
+
